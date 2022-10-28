@@ -41,9 +41,31 @@ module.exports = () => {
         }]
       }),
     ],
+    // TODO: Add CSS loaders and babel to webpack.
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader",
+            options: {
+              preset: ["@babel/preset-env"],
+              plugins: [
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/transform-runtime",
+              ],
+            },
+          },
+        }
+      ],
+    }
   }
 }
-// TODO: Add CSS loaders and babel to webpack.
 
 module.exports = () => {
   return {
@@ -57,12 +79,12 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      
+
     ],
 
     module: {
       rules: [
-        
+
       ],
     },
   };
