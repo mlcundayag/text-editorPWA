@@ -39,6 +39,7 @@ I successfully created the application and deployed it in heroku.
 ## Screenshots
 
 ![screenshot](/client/src/images/installed-desktop-screenshot.png)
+![screenshot-idb](/client/src/images/idb-screentshot.png)
 
 
 ## Links
