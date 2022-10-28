@@ -3,7 +3,9 @@ const WebpackPwaManifest = require('webpack-pwa-manifest');
 const path = require('path');
 const { InjectManifest } = require('workbox-webpack-plugin');
 
-//configure workbox plugins for a service worker and manifest file.
+// TODO: Add and configure workbox plugins for a service worker and manifest file.
+// TODO: Add CSS loaders and babel to webpack.
+
 module.exports = () => {
   return {
     mode: 'development',
@@ -17,53 +19,50 @@ module.exports = () => {
     },
     plugins: [
       new HtmlWebpackPlugin({
-        template: "./index.html",
-        title: "JATE",
+        template: './index.html',
+        title: 'JATE'
       }),
       new InjectManifest({
-        swSrc: "./src-sw.js",
-        swDest: "src-sw.js",
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js'
       }),
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,
-        name: "Just Another Text Editor",
-        short_name: "JATE",
-        description: "Text editor that can function offline and uses IndexedDB",
-        background_color: "#225ca3",
-        theme_color: "#225ca3",
-        start_url: "/",
-        publicPath: "/",
-        icons: [{
-          src: path.resolve("src/images/logo.png"),
-          sizes: [96, 128, 192, 256, 384, 512],
-          destination: path.join("assets", "icons"),
-        }]
-      }),
+        name: 'Just Another Text Editor',
+        short_name: 'J.A.T.E.',
+        description: "This application installs 'Just Another Text Editor' or 'JATE' for short.",
+        background_color: '#225ca3',
+        theme_color: '#225ca3',
+        start_url: '/',
+        publicPath: '/',
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512], //Various image sizes
+            destination: path.join('assets', 'icons'),
+          }
+        ]
+      })
     ],
-    
-    // set up CSS loaders and babel to webpack.
+
     module: {
       rules: [
         {
-          test: /\.css$/,
+          test: /\.css$/i,
           use: ['style-loader', 'css-loader'],
         },
         {
-          test: /\.js$/,
+          test: /\.m?js$/,
           exclude: /node_modules/,
           use: {
-            loader: "babel-loader",
+            loader: 'babel-loader',
             options: {
-              preset: ["@babel/preset-env"],
-              plugins: [
-                "@babel/plugin-proposal-object-rest-spread",
-                "@babel/transform-runtime",
-              ],
-            },
-          },
-        }
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime'],
+            }}
+        } 
       ],
     }
-  }
-}
+  };
+};
